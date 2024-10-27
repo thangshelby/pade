@@ -137,3 +137,18 @@ declare interface DriverCardProps {
   selected: number;
   setSelected: () => void;
 }
+
+export interface PredictedPlaces {
+  id: number;
+  placeId: string;
+  description: string;
+  distance: number;
+}
+
+export interface Location{
+  address: string;
+  rating: number;
+  type: string;
+  distance: number;
+  name: string;
+}

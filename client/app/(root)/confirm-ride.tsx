@@ -1,24 +1,34 @@
 import { router } from "expo-router";
 import { FlatList, View } from "react-native";
-
 import CustomButton from "@/components/CustomButton";
 import DriverCard from "@/components/DriverCard";
 import RideLayout from "@/components/RideLayout";
-import { useDriverStore } from "@/store";
+import { useDriverStore,useLocationStore } from "@/store";
+import { markersData } from "@/constants";
 
 const ConfirmRide = () => {
-  const { drivers, selectedDriver, setSelectedDriver } = useDriverStore();
+
+  const {setDestinationLocation} = useLocationStore();
+  const { drivers, selectedDriver,setSelectedDriver } = useDriverStore();
 
   return (
     <RideLayout title={"Choose a Rider"} snapPoints={["65%", "85%"]}>
       <FlatList
-        data={drivers}
+        data={markersData}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item, index }) => (
           <DriverCard
             item={item}
             selected={selectedDriver!}
-            setSelected={() => setSelectedDriver(item.id!)}
+            setSelected={() => 
+            {
+              setDestinationLocation({
+                latitude: item.latitude!,
+                longitude: item.longitude!,
+                address: item.title
+              })
+              setSelectedDriver(item.id!)}
+            }
           />
         )}
         ListFooterComponent={() => (
@@ -29,7 +39,7 @@ const ConfirmRide = () => {
             />
           </View>
         )}
-      />
+      />  
     </RideLayout>
   );
 };

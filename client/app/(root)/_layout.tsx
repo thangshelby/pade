@@ -17,6 +17,7 @@ const Layout = () => {
           headerShown: false,
         }}
       />
+      <Stack.Screen name='park-detail' options={{headerShown:false}} />
     </Stack>
   );
 };

@@ -1,11 +1,13 @@
 import React from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
-
+import { useRouter } from "expo-router";
 import { icons } from "@/constants";
 import { formatTime } from "@/lib/utils";
 import { DriverCardProps } from "@/types/type";
+import CustomButton from "./CustomButton";
 
 const DriverCard = ({ item, selected, setSelected }: DriverCardProps) => {
+  const router = useRouter();
   return (
     <TouchableOpacity
       onPress={setSelected}
@@ -14,8 +16,8 @@ const DriverCard = ({ item, selected, setSelected }: DriverCardProps) => {
       } flex flex-row items-center justify-between py-5 px-3 rounded-xl`}
     >
       <Image
-        source={{ uri: item.profile_image_url }}
-        className="w-14 h-14 rounded-full"
+        source={require('.././assets/images/san1.png')}
+        className="w-16 h-16 rounded-xl"
       />
 
       <View className="flex-1 flex flex-col items-start justify-center mx-3">
@@ -54,10 +56,19 @@ const DriverCard = ({ item, selected, setSelected }: DriverCardProps) => {
         </View>
       </View>
 
-      <Image
+      {/* <Image
         source={{ uri: item.car_image_url }}
         className="h-14 w-14"
         resizeMode="contain"
+      /> */}
+      <CustomButton
+        title="Details"
+        bgVariant="success"
+        textVariant="success"
+        onPress={()=>{
+          router.push("/(root)/park-detail");
+        }}
+        className="w-20 h-10 text-[16px] p-0"
       />
     </TouchableOpacity>
   );

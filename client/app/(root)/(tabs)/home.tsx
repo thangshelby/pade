@@ -12,15 +12,13 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-
+import { recentRides } from "@/constants";
 import GoogleTextInput from "@/components/GoogleTextInput";
 import Map from "@/components/Map";
 import RideCard from "@/components/RideCard";
 import { icons, images } from "@/constants";
 import { useFetch } from "@/lib/fetch";
 import { useLocationStore } from "@/store";
-import { Ride } from "@/types/type";
-
 const Home = () => {
   const { user } = useUser();
   const { signOut } = useAuth();
@@ -34,11 +32,13 @@ const Home = () => {
 
   const [hasPermission, setHasPermission] = useState<boolean>(false);
 
-  const {
-    data: recentRides,
-    loading,
-    error,
-  } = useFetch<Ride[]>(`/(api)/ride/${user?.id}`);
+  // const {
+  //   data: recentRides,
+  //   loading,
+  //   error,
+  // } = useFetch<Ride[]>(`/(api)/ride/${user?.id}`);
+
+  const loading = false;
 
   useEffect(() => {
     (async () => {
@@ -68,13 +68,13 @@ const Home = () => {
     longitude: number;
     address: string;
   }) => {
-    setDestinationLocation(location);
+    setUserLocation(location);
 
-    router.push("/(root)/find-ride");
+    router.push("/(root)/confirm-ride");
   };
 
   return (
-    <SafeAreaView className="bg-general-500">
+    <SafeAreaView className="bg-general-500 ">
       <FlatList
         data={recentRides?.slice(0, 5)}
         renderItem={({ item }) => <RideCard ride={item} />}
@@ -117,12 +117,12 @@ const Home = () => {
 
             <GoogleTextInput
               icon={icons.search}
-              containerStyle="bg-white shadow-md shadow-neutral-300"
+              containerStyle="bg-white shadow-md shadow-neutral-300  py-2 z-50" 
               handlePress={handleDestinationPress}
             />
 
             <>
-              <Text className="text-xl font-JakartaBold mt-5 mb-3">
+              <Text className=" z-0 text-xl font-JakartaBold mt-5 mb-3">
                 Your current location
               </Text>
               <View className="flex flex-row items-center bg-transparent h-[300px]">

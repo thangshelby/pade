@@ -12,6 +12,7 @@ import { tokenCache } from "@/lib/auth";
 SplashScreen.preventAutoHideAsync();
 
 const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!;
+console.log(publishableKey);
 
 if (!publishableKey) {
   throw new Error(
@@ -43,7 +44,7 @@ export default function RootLayout() {
   }
 
   return (
-    <ClerkProvider tokenCache={tokenCache} publishableKey={publishableKey}>
+    <ClerkProvider tokenCache={tokenCache} publishableKey={'pk_test_bGliZXJhbC1jYW1lbC00OC5jbGVyay5hY2NvdW50cy5kZXYk'}>
       <ClerkLoaded>
         <Stack>
           <Stack.Screen name="index" options={{ headerShown: false }} />
