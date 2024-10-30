@@ -1,21 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, Text, View, StyleSheet } from "react-native";
+import { ActivityIndicator, Text, View } from "react-native";
 import MapView, {
   Marker,
   PROVIDER_DEFAULT,
   Polyline,
   Circle,
 } from "react-native-maps";
-// import MapViewDirections from "react-native-maps-directions";
-import { icons } from "@/constants";
-import { useFetch } from "@/lib/fetch";
-import {
-  calculateDriverTimes,
-  calculateRegion,
-  generateMarkersFromData,
-} from "@/lib/map";
-import { useDriverStore, useLocationStore } from "@/store";
-import { Driver, MarkerData } from "@/types/type";
+import { icons, customMapStyle } from "@/constants";
+
+import { useParkingStore, useLocationStore } from "@/store";
+import { MarkerData } from "@/types/type";
 import { markersData } from "@/constants";
 
 const Map = () => {
@@ -24,13 +18,15 @@ const Map = () => {
     userLatitude,
     destinationLatitude,
     destinationLongitude,
+    destinationAddress,
+    setDestinationLocation,
   } = useLocationStore();
-  const { selectedDriver, setDrivers } = useDriverStore();
+  const { selectedParking, setParkings, setSelectedParking } =
+    useParkingStore();
 
-  // const { data: drivers, loading, error } = useFetch<Driver[]>("/(api)/driver");
   const loading = false;
 
-  const error = null;
+  const error = false;
   const [coordinates, setCoordinates] = useState<
     { latitude: number; longitude: number }[]
   >([]);
@@ -64,30 +60,11 @@ const Map = () => {
     }
   }, [destinationLatitude, destinationLongitude]);
 
-  // useEffect(() => {
-  //   if (
-  //     markers.length > 0 &&
-  //     destinationLatitude !== undefined &&
-  //     destinationLongitude !== undefined
-  //   ) {
-  //     calculateDriverTimes({
-  //       markers,
-  //       userLatitude,
-  //       userLongitude,
-  //       destinationLatitude,
-  //       destinationLongitude,
-  //     }).then((drivers) => {
-  //       setDrivers(drivers as MarkerData[]);
-  //     });
-  //   }
-  // }, [markers, destinationLatitude, destinationLongitude]);
-
-  const region = 
-  {
-    latitude:userLatitude?userLatitude:10.8188493310644,
-    longitude:userLongitude?userLongitude:106.62068852710144,
-    latitudeDelta: 0.05,
-    longitudeDelta: 0.05,
+  const region = {
+    latitude: userLatitude ? userLatitude : 10.8188493310644,
+    longitude: userLongitude ? userLongitude : 106.62068852710144,
+    latitudeDelta: 0.5,
+    longitudeDelta: 0.5,
   };
 
   const initialRegion = {
@@ -97,12 +74,12 @@ const Map = () => {
     longitudeDelta: 0.1,
   };
 
-  // if (loading || (!userLatitude && !userLongitude))
-  //   return (
-  //     <View className="flex justify-between items-center w-full">
-  //       <ActivityIndicator size="small" color="#000" />
-  //     </View>
-  //   );
+  if (loading)
+    return (
+      <View className="flex justify-between items-center w-full">
+        <ActivityIndicator size="small" color="#000" />
+      </View>
+    );
 
   if (error)
     return (
@@ -110,10 +87,11 @@ const Map = () => {
         <Text>Error: {error}</Text>
       </View>
     );
-
+    console.log(userLatitude, userLongitude)
   return (
     <MapView
       provider={PROVIDER_DEFAULT}
+      customMapStyle={customMapStyle}
       className="w-full h-full rounded-2xl overflow-hidden z-30"
       tintColor="black"
       mapType="mutedStandard"
@@ -127,29 +105,36 @@ const Map = () => {
         userLongitude &&
         markers.map((marker, index) => (
           <Marker
-            key={marker.id}
+            onPress={() => {
+              setSelectedParking(index);
+              setDestinationLocation({
+                address: marker.title,
+                latitude: marker.latitude,
+                longitude: marker.longitude,
+              });
+            }}
+            key={marker.title}
             coordinate={{
               latitude: marker.latitude,
               longitude: marker.longitude,
             }}
             title={marker.title}
-            image={
-              selectedDriver === +marker.id
-                ? icons.selectedMarker
-                : icons.marker
-            }
-          />
+            // image={selectedParking === +marker.id ? icons.point : icons.pin}
+          >
+            <View
+              className={`bg-white relative ${destinationAddress && destinationAddress === marker.title && "bg-blue-500 text-white"}  p-1 border-[1px] border-[#151551] rounded-full`}
+            >
+              <Text
+                className={` ${destinationAddress && destinationAddress === marker.title && " text-white"}`}
+              >
+                {marker.price}
+              </Text>
+              {/* <View className="absolute top-5 left-[50%] z-40">
+              <Text className="text-blue">sasdsaad</Text>
+            </View> */}
+            </View>
+          </Marker>
         ))}
-      {userLatitude && userLongitude && (
-        <Marker
-          coordinate={{
-            latitude: userLatitude,
-            longitude: userLongitude,
-          }}
-          title="My Location"
-          image={icons.point}
-        />
-      )}
 
       {coordinates.length > 0 && (
         <Polyline
@@ -157,6 +142,36 @@ const Map = () => {
           strokeWidth={4}
           strokeColor="#000"
         />
+      )}
+      {userLatitude && userLongitude && (
+        <>
+          <Marker
+            coordinate={{
+              latitude: userLatitude,
+              longitude: userLongitude,
+            }}
+            title="My Location"
+            image={icons.marker}
+          />
+          <Circle
+            center={{ latitude: userLatitude, longitude: userLongitude }}
+            radius={300}
+            strokeColor="rgba(0, 0, 0, 0.1)"
+            fillColor="rgba(173, 216, 230, 0.3)"
+          />
+          <Circle
+            center={{ latitude: userLatitude, longitude: userLongitude }}
+            radius={600} // Medium circle
+            strokeColor="rgba(0, 0, 0, 0.1)"
+            fillColor="rgba(173, 216, 230, 0.2)"
+          />
+          <Circle
+            center={{ latitude: userLatitude, longitude: userLongitude }}
+            radius={900} // Largest circle
+            strokeColor="rgba(0, 0, 0, 0.1)"
+            fillColor="rgba(173, 216, 230, 0.1)"
+          />
+        </>
       )}
     </MapView>
   );

@@ -1,6 +1,6 @@
 import { TextInputProps, TouchableOpacityProps } from "react-native";
 
-declare interface Driver {
+declare interface Parking {
   id: number;
   first_name: string;
   last_name: string;
@@ -14,15 +14,12 @@ declare interface MarkerData {
   latitude: number;
   longitude: number;
   id: number;
+  distance: number
   title: string;
-  profile_image_url: string;
-  car_image_url: string;
-  car_seats: number;
+  address: string
   rating: number;
-  first_name: string;
-  last_name: string;
   time?: number;
-  price?: string;
+  price: string;
 }
 
 declare interface MapProps {
@@ -122,14 +119,15 @@ declare interface LocationStore {
     longitude: number;
     address: string;
   }) => void;
+  clearUserLocation: () => void;
 }
 
-declare interface DriverStore {
-  drivers: MarkerData[];
-  selectedDriver: number | null;
-  setSelectedDriver: (driverId: number) => void;
-  setDrivers: (drivers: MarkerData[]) => void;
-  clearSelectedDriver: () => void;
+declare interface ParkingStore {
+  parkings: MarkerData[];
+  selectedParking: number | null;
+  setSelectedParking: (driverId: number) => void;
+  setParkings: (drivers: MarkerData[]) => void;
+  clearSelectedParking: () => void;
 }
 
 declare interface DriverCardProps {
@@ -151,4 +149,19 @@ export interface Location{
   type: string;
   distance: number;
   name: string;
+}
+
+export interface FindPlaceFilterStore{
+  times:"Theo ngày"| "Theo tuần",
+  setTimes:(time:"Theo ngày"| "Theo tuần")=>void
+  cars:"Xe 4 chỗ"| "Xe 7 chỗ"| "Xe tải nhỏ"| "Xe tải lớn",
+  setCars:(car:"Xe 4 chỗ"| "Xe 7 chỗ"| "Xe tải nhỏ"| "Xe tải lớn")=>void
+  amenities:string[],
+  setAmenities:(amenities:string[])=>void
+  price:number,
+  setPrice:(price:number)=>void
+  distance:number,
+  setDistance:(distance:number)=>void
+
+  
 }

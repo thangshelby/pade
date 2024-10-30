@@ -32,7 +32,7 @@ import onboarding2 from "@/assets/images/onboarding2.png";
 import onboarding3 from "@/assets/images/onboarding3.png";
 import signUpCar from "@/assets/images/signup-car.png";
 
-import { Ride,MarkerData } from "@/types/type";
+import { Ride, MarkerData } from "@/types/type";
 import { title } from "process";
 
 export const images = {
@@ -98,137 +98,27 @@ export const onboarding = [
   },
 ];
 
-export const data = {
-  onboarding,
-};
-
-export const recentRides: Ride[] = [
-  {
-    // "ride_id": "1",
-    origin_address: "Kathmandu, Nepal",
-    destination_address: "Pokhara, Nepal",
-    origin_latitude: 27.717245,
-    origin_longitude: 85.323961,
-    destination_latitude: 28.209583,
-    destination_longitude: 83.985567,
-    ride_time: 391,
-    fare_price: 19500.0,
-    payment_status: "paid",
-    driver_id: 2,
-    user_id: "1",
-    created_at: "2024-08-12 05:19:20.620007",
-    driver: {
-      // "driver_id": 2,
-      first_name: "David",
-      last_name: "Brown",
-      // "profile_image_url": "https://ucarecdn.com/6ea6d83d-ef1a-483f-9106-837a3a5b3f67/-/preview/1000x666/",
-      // "car_image_url": "https://ucarecdn.com/a3872f80-c094-409c-82f8-c9ff38429327/-/preview/930x932/",
-      car_seats: 5,
-      // "rating": "4.60"
-    },
-  },
-  // {
-  //     "ride_id": "2",
-  //     "origin_address": "Jalkot, MH",
-  //     "destination_address": "Pune, Maharashtra, India",
-  //     "origin_latitude": "18.609116",
-  //     "origin_longitude": "77.165873",
-  //     "destination_latitude": "18.520430",
-  //     "destination_longitude": "73.856744",
-  //     "ride_time": 491,
-  //     "fare_price": "24500.00",
-  //     "payment_status": "paid",
-  //     "driver_id": 1,
-  //     "user_id": "1",
-  //     "created_at": "2024-08-12 06:12:17.683046",
-  //     "driver": {
-  //         "driver_id": "1",
-  //         "first_name": "James",
-  //         "last_name": "Wilson",
-  //         "profile_image_url": "https://ucarecdn.com/dae59f69-2c1f-48c3-a883-017bcf0f9950/-/preview/1000x666/",
-  //         "car_image_url": "https://ucarecdn.com/a2dc52b2-8bf7-4e49-9a36-3ffb5229ed02/-/preview/465x466/",
-  //         "car_seats": 4,
-  //         "rating": "4.80"
-  //     }
-  // },
-  // {
-  //     "ride_id": "3",
-  //     "origin_address": "Zagreb, Croatia",
-  //     "destination_address": "Rijeka, Croatia",
-  //     "origin_latitude": "45.815011",
-  //     "origin_longitude": "15.981919",
-  //     "destination_latitude": "45.327063",
-  //     "destination_longitude": "14.442176",
-  //     "ride_time": 124,
-  //     "fare_price": "6200.00",
-  //     "payment_status": "paid",
-  //     "driver_id": 1,
-  //     "user_id": "1",
-  //     "created_at": "2024-08-12 08:49:01.809053",
-  //     "driver": {
-  //         "driver_id": "1",
-  //         "first_name": "James",
-  //         "last_name": "Wilson",
-  //         "profile_image_url": "https://ucarecdn.com/dae59f69-2c1f-48c3-a883-017bcf0f9950/-/preview/1000x666/",
-  //         "car_image_url": "https://ucarecdn.com/a2dc52b2-8bf7-4e49-9a36-3ffb5229ed02/-/preview/465x466/",
-  //         "car_seats": 4,
-  //         "rating": "4.80"
-  //     }
-  // },
-  // {
-  //     "ride_id": "4",
-  //     "origin_address": "Okayama, Japan",
-  //     "destination_address": "Osaka, Japan",
-  //     "origin_latitude": "34.655531",
-  //     "origin_longitude": "133.919795",
-  //     "destination_latitude": "34.693725",
-  //     "destination_longitude": "135.502254",
-  //     "ride_time": 159,
-  //     "fare_price": "7900.00",
-  //     "payment_status": "paid",
-  //     "driver_id": 3,
-  //     "user_id": "1",
-  //     "created_at": "2024-08-12 18:43:54.297838",
-  //     "driver": {
-  //         "driver_id": "3",
-  //         "first_name": "Michael",
-  //         "last_name": "Johnson",
-  //         "profile_image_url": "https://ucarecdn.com/0330d85c-232e-4c30-bd04-e5e4d0e3d688/-/preview/826x822/",
-  //         "car_image_url": "https://ucarecdn.com/289764fb-55b6-4427-b1d1-f655987b4a14/-/preview/930x932/",
-  //         "car_seats": 4,
-  //         "rating": "4.70"
-  //     }
-  // }
-];
-
-export const markersData:MarkerData[] = [
+export const markersData: MarkerData[] = [
   {
     latitude: 10.801134230174613,
     longitude: 106.64906845538778,
     title: "Ấm - Sữa hạt và cà phê",
     id: 1,
-    first_name: "James",
-    last_name: "Wilson",
-    profile_image_url:
-      "https://ucarecdn.com/dae59f69-2c1f-48c3-a883-017bcf0f9950/-/preview/1000x666/",
-    car_image_url:
-      "https://ucarecdn.com/a2dc52b2-8bf7-4e49-9a36-3ffb5229ed02/-/preview/465x466/",
-    car_seats: 4,
+    distance: 6.32,
+    price: "85.000 đ",
     rating: 4.8,
+    address:
+      "72 Lê Trung Nghĩa, Phường 12, Tân Bình, Hồ Chí Minh 700000, Vietnam",
   },
   {
     latitude: 10.806346553362669,
     longitude: 106.65852482007274,
     title: "Chao Lua Football Field",
     id: 2,
-    first_name: "David",
-    last_name: "Brown",
-    profile_image_url:
-      "https://ucarecdn.com/6ea6d83d-ef1a-483f-9106-837a3a5b3f67/-/preview/1000x666/",
-    car_image_url:
-      "https://ucarecdn.com/a3872f80-c094-409c-82f8-c9ff38429327/-/preview/930x932/",
-    car_seats: 5,
+    distance: 3.5,
+    price: "100.000 đ",
     rating: 4.6,
+    address: "30 Phan Thúc Duyện, Phường 4, Tân Bình, Hồ Chí Minh, Vietnam",
   },
   {
     latitude: 10.797672418170533,
@@ -236,49 +126,152 @@ export const markersData:MarkerData[] = [
     title: "Dáng Việt - Private Fitness Studio",
 
     id: 3,
-    first_name: "Michael",
-    last_name: "Johnson",
-    profile_image_url:
-      "https://ucarecdn.com/0330d85c-232e-4c30-bd04-e5e4d0e3d688/-/preview/826x822/",
-    car_image_url:
-      "https://ucarecdn.com/289764fb-55b6-4427-b1d1-f655987b4a14/-/preview/930x932/",
-    car_seats: 4,
+
+    distance: 4.7,
+    price: "73.000 đ",
     rating: 4.7,
+    address:
+      "348/10 Đ. Hoàng Văn Thụ, Phường 4, Tân Bình, Hồ Chí Minh 700000, Vietnam",
   },
   {
     latitude: 10.791114486402513,
     longitude: 106.64216847102271,
     title: "Galaxy Cinema Tan Binh",
     id: 4,
-    first_name: "Robert",
-    last_name: "Green",
-    profile_image_url:
-      "https://ucarecdn.com/fdfc54df-9d24-40f7-b7d3-6f391561c0db/-/preview/626x417/",
-    car_image_url:
-      "https://ucarecdn.com/b6fb3b55-7676-4ff3-8484-fb115e268d32/-/preview/930x932/",
-    car_seats: 4,
+
+    distance: 9.1,
+    price: "47.000 đ",
+
     rating: 4.9,
+    address:
+      "246 Đ. Nguyễn Hồng Đào, Phường 14, Tân Bình, Hồ Chí Minh, Vietnam",
+  },
+  {
+    latitude: 10.778266697209194,
+    longitude: 106.70155383488034,
+    title: "Vincom Center Đồng Khởi",
+    id: 4,
+    distance: 2.32,
+    price: "88.000 đ",
+    rating: 4.9,
+    address: "72 Đ. Lê Thánh Tôn, Bến Nghé, Quận 1, Hồ Chí Minh, Vietnam",
+  },
+];
+
+export const navBarItems = [
+  {
+    title: "Tổng quan",
+  },
+  {
+    title: "Mô tả",
+  },
+  {
+    title: "Đánh giá",
+  },
+
+  {
+    title: "Vị trí",
+  },
+  {
+    title: "Tiện nghi",
+  },
+  {
+    title: "Policy",
+  },
+];
+
+export const times: ["Theo ngày", "Theo tuần"] = ["Theo ngày", "Theo tuần"];
+export const cars: ["Xe 4 chỗ", "Xe 7 chỗ", "Xe tải nhỏ", "Xe tải lớn"] = [
+  "Xe 4 chỗ",
+  "Xe 7 chỗ",
+  "Xe tải nhỏ",
+  "Xe tải lớn",
+];
+export const amenities: [
+  "Có mái che",
+  "Camera an ninh",
+  "Bãi xe liên kết",
+  "Nhà hàng & Cafe",
+  "Rửa xe",
+] = [
+  "Có mái che",
+  "Camera an ninh",
+  "Bãi xe liên kết",
+  "Nhà hàng & Cafe",
+  "Rửa xe",
+];
+
+export const customMapStyle = [
+  { elementType: "geometry", stylers: [{ color: "#f5f5f5" }] },
+  { elementType: "labels.icon", stylers: [{ visibility: "off" }] },
+  { elementType: "labels.text.fill", stylers: [{ color: "#616161" }] },
+  { elementType: "labels.text.stroke", stylers: [{ color: "#f5f5f5" }] },
+  {
+    featureType: "water",
+    elementType: "geometry",
+    stylers: [{ color: "#b7dfe6" }],
+  },
+  {
+    featureType: "road",
+    elementType: "geometry",
+    stylers: [{ color: "#ffffff" }],
+  },
+  {
+    featureType: "road.arterial",
+    elementType: "geometry",
+    stylers: [{ color: "#d6d6d6" }],
+  },
+  {
+    featureType: "road.highway",
+    elementType: "geometry",
+    stylers: [{ color: "#cfcfcf" }],
+  },
+  {
+    featureType: "poi",
+    elementType: "labels.text.fill",
+    stylers: [{ color: "#757575" }],
+  },
+];
+
+import { PredictedPlaces } from "@/types/type";
+export const historyPlaces: PredictedPlaces[] = [
+  {
+    description:
+      "123 Hồ Văn Huê, Phường 9 (Phú Nhuận), Phú Nhuận, Ho Chi Minh City",
+    id: 0,
+    placeId:
+      "Ek4xMjMgSOG7kyBWxINuIEh1w6osIFBoxrDhu51uZyA5IChQaMO6IE5odeG6rW4pLCBQaMO6IE5odeG6rW4sIEhvIENoaSBNaW5oIENpdHkiLiosChQKEgkraHlz2Ch1MRHFJRFBgthsnxIUChIJP6vLLScpdTER-lnDhYsUgyw",
+    distance: 1000,
+  },
+  {
+    description: "123 Hồ Văn Long, Tân Tạo, Bình Tân, Ho Chi Minh City",
+    distance: 7440,
+    id: 1,
+    placeId:
+      "EjwxMjMgSOG7kyBWxINuIExvbmcsIFTDom4gVOG6oW8sIELDrG5oIFTDom4sIEhvIENoaSBNaW5oIENpdHkiMBIuChQKEgkLSgWWUCx1MRE5fH7RH_jNhhB7KhQKEglvjnr_Vix1MRFPeMbf02dfBg",
+  },
+  {
+    description:
+      "123 Hồ Bá Kiện, Cư xá Bắc Hải, Phường 15, District 10, Ho Chi Minh City",
+    distance: 6517,
+    id: 2,
+    placeId:
+      "ElUxMjMgSOG7kyBCw6EgS2nhu4duLCBDxrAgeMOhIELhuq9jIEjhuqNpLCBQaMaw4budbmcgMTUsIERpc3RyaWN0IDEwLCBIbyBDaGkgTWluaCBDaXR5IjASLgoUChIJMc9UstEudTERGQM51CLqEKoQeyoUChIJh3Oo-NAudTER8fVBm5rhZVo",
+  },
+  {
+    description: "123 Hồ Văn Long, Bình Hưng Hòa B, Bình Tân, Ho Chi Minh City",
+    distance: 2334,
+    id: 3,
+    placeId:
+      "EkQxMjMgSOG7kyBWxINuIExvbmcsIELDrG5oIEjGsG5nIEjDsmEgQiwgQsOsbmggVMOibiwgSG8gQ2hpIE1pbmggQ2l0eSIwEi4KFAoSCUuC4Km-K3UxETfBe4EckGpNEHsqFAoSCQudKmG5K3UxEdVI_omFpDm1",
+  },
+  {
+    description: "123 Hồ Đắc Di, Tay Thanh, Tân Phú, Ho Chi Minh City",
+    distance: 2023,
+    id: 4,
+    placeId:
+      "EjoxMjMgSOG7kyDEkOG6r2MgRGksIFRheSBUaGFuaCwgVMOibiBQaMO6LCBIbyBDaGkgTWluaCBDaXR5IjASLgoUChIJu7Uc_lgpdTERJ9Fj6EfWdIAQeyoUChIJ0afSDFkpdTERTrw_Ac3ePhw",
   },
 ];
 
 
-export const navBarItems = [{
-  title:'Tổng quan',
-},
-{
-  title:'Mô tả',  
-},
-{
-  title:'Đánh giá',
-},
-
-{
-  title:'Vị trí',
-},
-{
-  title:'Tiện nghi',
-},
-{
-  title:'Policy',
-}
-]

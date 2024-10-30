@@ -17,7 +17,26 @@ const Layout = () => {
           headerShown: false,
         }}
       />
-      <Stack.Screen name='park-detail' options={{headerShown:false}} />
+      <Stack.Screen
+        name="search-place-detail"
+        options={{
+          headerShown: false,
+        }}
+      />
+     
+      <Stack.Screen
+        name="park-success"
+        options={{
+          headerShown: false,
+        }}
+      />
+       <Stack.Screen
+        name="park-filter"
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen name="park-detail" options={{ headerShown: false }} />
     </Stack>
   );
 };

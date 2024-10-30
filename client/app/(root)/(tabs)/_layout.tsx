@@ -1,28 +1,31 @@
 import { Tabs } from "expo-router";
-import { Image, ImageSourcePropType, View } from "react-native";
+import { Image, ImageSourcePropType, View, Text } from "react-native";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import {
+  faCompass,
+  faUser,
+  faInfo,
+  faBookmark,
+  IconDefinition,
+} from "@fortawesome/free-solid-svg-icons";
 
-import { icons } from "@/constants";
 
 const TabIcon = ({
   source,
   focused,
 }: {
-  source: ImageSourcePropType;
+  source: IconDefinition;
   focused: boolean;
 }) => (
-  <View
-    className={`flex flex-row justify-center items-center rounded-full ${focused ? "bg-general-300" : ""}`}
+  <View 
+    className={`   w-[80%] flex-col justify-center items-center gap-y-6
+     ${focused &&'border-t-[2px] border-[#151551]'} `}
   >
-    <View
-      className={`rounded-full w-12 h-12 items-center justify-center ${focused ? "bg-general-400" : ""}`}
-    >
-      <Image
-        source={source}
-        tintColor="white"
-        resizeMode="contain"
-        className="w-7 h-7"
-      />
-    </View>
+    <FontAwesomeIcon
+      icon={source}
+      size={24}
+      color={focused ? "#151551" : "gray"}
+    />
   </View>
 );
 
@@ -31,17 +34,19 @@ export default function Layout() {
     <Tabs
       initialRouteName="index"
       screenOptions={{
-        tabBarActiveTintColor: "white",
-        tabBarInactiveTintColor: "white",
-        tabBarShowLabel: false,
+        tabBarShowLabel: true,
+        tabBarLabelPosition: "below-icon",
+        tabBarLabelStyle: {
+          fontSize: 14,
+          marginTop:20 ,
+          fontWeight: "bold",
+          color: "#151551",
+        },
         tabBarStyle: {
-          backgroundColor: "#333333",
-          borderRadius: 50,
-          paddingBottom: 0, // ios only
+          
+          paddingTop: 20, // ios only
           overflow: "hidden",
-          marginHorizontal: 20,
-          marginBottom: 20,
-          height: 78,
+          height: 80,
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
@@ -53,40 +58,40 @@ export default function Layout() {
       <Tabs.Screen
         name="home"
         options={{
-          title: "Home",
+          title: "Bãi đỗ xe",
           headerShown: false,
           tabBarIcon: ({ focused }) => (
-            <TabIcon source={icons.home} focused={focused} />
+            <TabIcon source={faCompass} focused={focused} />
           ),
         }}
       />
       <Tabs.Screen
         name="rides"
         options={{
-          title: "Rides",
+          title: "Dấu trang",
           headerShown: false,
           tabBarIcon: ({ focused }) => (
-            <TabIcon source={icons.list} focused={focused} />
+            <TabIcon source={faBookmark} focused={focused} />
           ),
         }}
       />
       <Tabs.Screen
         name="chat"
         options={{
-          title: "Chat",
+          title: "Tài khoản",
           headerShown: false,
           tabBarIcon: ({ focused }) => (
-            <TabIcon source={icons.chat} focused={focused} />
+            <TabIcon source={faUser} focused={focused} />
           ),
         }}
       />
       <Tabs.Screen
         name="profile"
         options={{
-          title: "Profile",
+          title: "Trợ giúp",
           headerShown: false,
           tabBarIcon: ({ focused }) => (
-            <TabIcon source={icons.profile} focused={focused} />
+            <TabIcon source={faInfo} focused={focused} />
           ),
         }}
       />

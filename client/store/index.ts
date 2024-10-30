@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { markersData } from "@/constants";
-import { DriverStore, LocationStore, MarkerData } from "@/types/type";
+import { ParkingStore, LocationStore, MarkerData,FindPlaceFilterStore } from "@/types/type";
 
 export const useLocationStore = create<LocationStore>((set) => ({
   userLatitude: null,
@@ -14,7 +14,7 @@ export const useLocationStore = create<LocationStore>((set) => ({
     longitude,
     address,
   }: {
-    latitude: number;
+    latitude: number ;
     longitude: number;
     address: string;
   }) => {
@@ -24,14 +24,14 @@ export const useLocationStore = create<LocationStore>((set) => ({
       userAddress: address,
     }));
 
-    // if driver is selected and now new location is set, clear the selected driver
-    const { selectedDriver, clearSelectedDriver } = useDriverStore.getState();
-    if (selectedDriver) clearSelectedDriver();
+   
+    const { selectedParking, clearSelectedParking } = useParkingStore.getState();
+    if (selectedParking) clearSelectedParking();
   },
 
   setDestinationLocation: ({
     latitude,
-    longitude,
+    longitude,  
     address,
   }: {
     latitude: number;
@@ -44,17 +44,44 @@ export const useLocationStore = create<LocationStore>((set) => ({
       destinationAddress: address,
     }));
 
-    // if driver is selected and now new location is set, clear the selected driver
-    const { selectedDriver, clearSelectedDriver } = useDriverStore.getState();
-    if (selectedDriver) clearSelectedDriver();
+    
+    const { selectedParking, clearSelectedParking } = useParkingStore.getState();
+    if (selectedParking) clearSelectedParking();
   },
+  clearUserLocation: () =>{
+    set(() => ({
+      userLatitude: null,
+      userLongitude: null,
+      userAddress: null,
+    }));
+  }
 }));
 
-export const useDriverStore = create<DriverStore>((set) => ({
-  drivers: markersData,
-  selectedDriver: null,
-  setSelectedDriver: (driverId: number) =>
-    set(() => ({ selectedDriver: driverId })),
-  setDrivers: (drivers: MarkerData[]) => set(() => ({ drivers })),
-  clearSelectedDriver: () => set(() => ({ selectedDriver: null })),
+export const useParkingStore = create<ParkingStore>((set) => ({
+  parkings: markersData,
+  selectedParking: null,
+  setSelectedParking: (parkingId: number) =>
+    set(() => ({ selectedParking: parkingId })),
+  setParkings: (parkings: MarkerData[]) => set(() => ({ parkings })),
+  clearSelectedParking: () => set(() => ({ selectedParking: null })),
 }));
+
+
+
+
+export const useFindPlaceFilter= create<FindPlaceFilterStore>((set) => ({
+  times:"Theo ngày",
+  setTimes:(time:"Theo ngày"| "Theo tuần")=>set(()=>({times:time})),
+  cars:"Xe 4 chỗ",
+  setCars:(car:"Xe 4 chỗ"| "Xe 7 chỗ"| "Xe tải nhỏ"| "Xe tải lớn")=>set(()=>({cars:car})),
+  amenities:[],
+  setAmenities:(amenities:string[])=>
+    set(()=>({amenities})),
+  price:25,
+  setPrice:(price:number)=>set(()=>({price})),
+  distance:500,
+  setDistance:(distance:number)=>set(()=>({distance}))
+
+}))
+
+
