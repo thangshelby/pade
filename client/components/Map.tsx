@@ -5,10 +5,11 @@ import MapView, {
   PROVIDER_DEFAULT,
   Polyline,
   Circle,
+  Callout,
 } from "react-native-maps";
 import { icons, customMapStyle } from "@/constants";
-
-import { useParkingStore, useLocationStore } from "@/store";
+import { PlaceValidAfterFilter } from "@/lib/utils";
+import { useParkingStore, useLocationStore, useFindPlaceFilter } from "@/store";
 import { MarkerData } from "@/types/type";
 import { markersData } from "@/constants";
 
@@ -16,13 +17,29 @@ const Map = () => {
   const {
     userLongitude,
     userLatitude,
+    userAddress,
     destinationLatitude,
     destinationLongitude,
     destinationAddress,
     setDestinationLocation,
   } = useLocationStore();
-  const { selectedParking, setParkings, setSelectedParking } =
-    useParkingStore();
+  const { setSelectedParking, selectedParking } = useParkingStore();
+  const { price, distance, amenities } = useFindPlaceFilter();
+
+  const [markers, setMarkers] = useState<MarkerData[]>(markersData);
+
+  useEffect(() => {
+    if (userAddress) {
+      const filteredMarkers = PlaceValidAfterFilter({
+        myLocation: { latitude: userLatitude!, longitude: userLongitude! },
+        places: markersData,
+        distance,
+        price,
+        amenities,
+      });
+      setMarkers(filteredMarkers);
+    }
+  }, [userAddress]);
 
   const loading = false;
 
@@ -30,7 +47,15 @@ const Map = () => {
   const [coordinates, setCoordinates] = useState<
     { latitude: number; longitude: number }[]
   >([]);
-  const [markers, setMarkers] = useState<MarkerData[]>(markersData);
+
+  const handlePressMarker = (marker: MarkerData) => {
+    setSelectedParking(marker);
+    setDestinationLocation({
+      address: marker.title,
+      latitude: marker.latitude,
+      longitude: marker.longitude,
+    });
+  };
 
   useEffect(() => {
     const fetchCoordinatesDirection = async () => {
@@ -87,12 +112,13 @@ const Map = () => {
         <Text>Error: {error}</Text>
       </View>
     );
-    console.log(userLatitude, userLongitude)
+
+  
   return (
     <MapView
       provider={PROVIDER_DEFAULT}
       customMapStyle={customMapStyle}
-      className="w-full h-full rounded-2xl overflow-hidden z-30"
+      className="w-full h-full rounded-2xl overflow-hidden z-20"
       tintColor="black"
       mapType="mutedStandard"
       showsPointsOfInterest={false}
@@ -103,15 +129,10 @@ const Map = () => {
     >
       {userLatitude &&
         userLongitude &&
-        markers.map((marker, index) => (
+        markers.map((marker) => (
           <Marker
             onPress={() => {
-              setSelectedParking(index);
-              setDestinationLocation({
-                address: marker.title,
-                latitude: marker.latitude,
-                longitude: marker.longitude,
-              });
+              handlePressMarker(marker);
             }}
             key={marker.title}
             coordinate={{
@@ -119,33 +140,51 @@ const Map = () => {
               longitude: marker.longitude,
             }}
             title={marker.title}
-            // image={selectedParking === +marker.id ? icons.point : icons.pin}
           >
-            <View
-              className={`bg-white relative ${destinationAddress && destinationAddress === marker.title && "bg-blue-500 text-white"}  p-1 border-[1px] border-[#151551] rounded-full`}
-            >
-              <Text
-                className={` ${destinationAddress && destinationAddress === marker.title && " text-white"}`}
+            <View className="h-[35px] w-[50px] flex justify-center items-center ">
+              <View
+                style={{
+                  width: 50,
+                  height: 20,
+                  backgroundColor:
+                    destinationAddress && destinationAddress === marker.title
+                      ? "#151551"
+                      : "white",
+                  position: "relative",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  borderColor: "#151551",
+                  borderWidth: 2,
+                  borderRadius: 100,
+                }}
               >
-                {marker.price}
-              </Text>
-              {/* <View className="absolute top-5 left-[50%] z-40">
-              <Text className="text-blue">sasdsaad</Text>
-            </View> */}
+                <Text
+                  className={` ${destinationAddress && destinationAddress === marker.title && " text-white"} text-[10px]`}
+                >
+                  {marker.price}
+                </Text>
+              </View>
+              <View
+                className="z-50
+                  border-l-[2px] border-[#151551] h-[15px]"
+              ></View>
             </View>
           </Marker>
         ))}
 
-      {coordinates.length > 0 && (
+      {coordinates.length > 0 && userAddress && (
         <Polyline
           coordinates={coordinates}
           strokeWidth={4}
-          strokeColor="#000"
+          strokeColor="gray"
         />
       )}
+
       {userLatitude && userLongitude && (
         <>
           <Marker
+            centerOffset={{ x: 100, y: -60 }}
             coordinate={{
               latitude: userLatitude,
               longitude: userLongitude,
@@ -155,19 +194,19 @@ const Map = () => {
           />
           <Circle
             center={{ latitude: userLatitude, longitude: userLongitude }}
-            radius={300}
+            radius={Math.floor(distance / 3)}
             strokeColor="rgba(0, 0, 0, 0.1)"
             fillColor="rgba(173, 216, 230, 0.3)"
           />
           <Circle
             center={{ latitude: userLatitude, longitude: userLongitude }}
-            radius={600} // Medium circle
+            radius={Math.floor(distance * (2 / 3))} // Medium circle
             strokeColor="rgba(0, 0, 0, 0.1)"
             fillColor="rgba(173, 216, 230, 0.2)"
           />
           <Circle
             center={{ latitude: userLatitude, longitude: userLongitude }}
-            radius={900} // Largest circle
+            radius={distance} // Largest circle
             strokeColor="rgba(0, 0, 0, 0.1)"
             fillColor="rgba(173, 216, 230, 0.1)"
           />
