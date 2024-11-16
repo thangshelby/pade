@@ -98,7 +98,7 @@ export const getAutoComplete = async (req: Request, res: Response) => {
       url: "/place/autocomplete/json",
       params: {
         input,
-        radius: "10000",
+        radius: "100000",
         strictbounds: "true",
         offset: "3",
         location: initLatLng,

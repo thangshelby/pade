@@ -45,17 +45,23 @@ const login = async (req: Request, res: Response) => {
   }
 };
 const signup = async (req: Request, res: Response) => {
-  const { user_type, email, user_name, password, birthday, phone } = req.body;
+  return res.status(200).json({user:  {
+    email: "ngothang@gmail.com",
+    name: "Thang Ngo",
+    password: "1234",
+  },});
+  console.log(req.body);
+  const { email,name, password } = req.body;
   const authModel = new SSMSModel();
 
   try {
     const hashPassword = await bcrypt.hash(password, 12);
 
-    const user = await authModel.Create({
+    const user = await authModel.Create({ 
       tableName: "Users",
       columns: "UserType,UserName,Email,Birth,Phone,Password",
-      values: `'${user_type}','${user_name}','${email}','${birthday}','${phone}','${hashPassword}'`,
-    });
+      values: `'','${name}','${email}','','','${hashPassword}'`,
+    }); 
 
     res
       .status(200)
@@ -68,9 +74,9 @@ const signup = async (req: Request, res: Response) => {
 
 const users = [
   {
-    Email: "ngothang@gmail.com",
-    Name: "Thang Ngo",
-    Password: "1234",
+    email: "ngothang@gmail.com",
+    name: "Thang Ngo",
+    password: "1234",
   },
 ];
 

@@ -96,3 +96,14 @@ export const classifyPlaceType = (types: string[]): string => {
   });
   return result;
 } 
+
+
+export const calculateOrderAmount = (items:{amount:number}[]) => {
+  // Calculate the order total on the server to prevent
+  // people from directly manipulating the amount on the client
+  let total = 0;
+  items.forEach((item) => {
+    total += item.amount;
+  });
+  return total;
+};

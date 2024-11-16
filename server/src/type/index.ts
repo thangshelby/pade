@@ -21,7 +21,6 @@ export interface DeleteTableType {
 }
 export interface UserType{
     UserID: number;
-    UserType: string;
     Email: string;
     UserName: string;
     Password: string;

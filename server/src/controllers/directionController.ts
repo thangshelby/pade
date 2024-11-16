@@ -30,7 +30,7 @@ export const getDirections = async (req: Request, res: Response) => {
           longitude: coordinate[0],
         });
       }
-      return res.status(200).json({ status: 200, coordinates });
+      return res.status(200).json({ status: 200, coordinates,duration: response.data.routes[0].duration }); 
     } catch (error) {
       return res.status(500).json({ message: "Internal server error" });
     }
