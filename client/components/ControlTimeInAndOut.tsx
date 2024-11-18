@@ -19,12 +19,12 @@ const ControlstimeInAndOut = ({
 }) => {
   const styles = StyleSheet.create({
     mainText: {
-      fontSize: 16,
+      fontSize: 13,
       fontWeight: "800",
       color: mainTextStyle ? "" : "#151551",
     },
     subText: {
-      fontSize: 16,
+      fontSize: 13,
       fontWeight: "500",
       color: subTextStyle ? "white" : "#818382",
     },
@@ -57,7 +57,7 @@ const ControlstimeInAndOut = ({
 
   return (
     <View className="bg-transparent flex-col ">
-      <GestureHandlerRootView className="h-[60px]">
+      <GestureHandlerRootView className="py-1">
         <View
           className="flex-row justify-between items-center 
     gap-3 rounded-xl "

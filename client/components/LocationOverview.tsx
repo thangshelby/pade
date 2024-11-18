@@ -78,7 +78,7 @@ const LocationOverview = () => {
       <ButtonContainer className="w-full flex-row">
         <Button
           onPress={() => {
-            router.push("/(root)/park-detail");
+            router.push("/(user)/park-detail");
           }}
           className="w-[80%] bg-yellow-400"
         >

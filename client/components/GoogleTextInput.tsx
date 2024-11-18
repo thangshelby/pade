@@ -47,7 +47,7 @@ const GoogleTextInput = ({
         <View className="w-full" style={styles.textInputContainer}>
           <TextInput
             onPress={() => {
-              router.push("/(root)/search-place-detail");
+              router.push("/(user)/search-place-detail");
             }}
             placeholder="Nhập điểm đến"
             style={styles.textInput}

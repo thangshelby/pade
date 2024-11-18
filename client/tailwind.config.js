@@ -4,6 +4,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
+        sansss:['sans-serif','San Francisco'],
         Jakarta: ["Jakarta", "sans-serif"],
         JakartaBold: ["Jakarta-Bold", "sans-serif"],
         JakartaExtraBold: ["Jakarta-ExtraBold", "sans-serif"],
@@ -80,6 +81,9 @@ module.exports = {
         },
       },
     },
+  },
+  size: {
+      
   },
   plugins: [],
 };

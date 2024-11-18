@@ -1,5 +1,34 @@
 import { TextInputProps, TouchableOpacityProps } from "react-native";
 
+declare interface User {
+  id: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone_number: string;
+}
+
+declare interface UserStore {
+  user: User | null;
+  isSignedIn: boolean;
+  setIsSignedIn: (isSignedIn: boolean) => void;
+  setUser: (user: User) => void;
+  clearUser: () => void;
+
+}
+
+// declare interface InvoiceStore {
+//   totalPrice:number;
+//   setTotalPrice:(price:number)=>void;
+//   currentUser:UserStore;
+//   setCurrentUser:(user:UserStore)=>void;
+//   selectedParking:MarkerData;
+//   setSelectedParking:(parking:MarkerData)=>void;
+//   paymentStatus:'Paid'| 'Unpaid' | 'Pending';
+//   setPaymentStatus:(status:'Paid'| 'Unpaid' | 'Pending')=>void;
+// }
+
+
 declare interface Parking {
   id: number;
   first_name: string;
@@ -14,12 +43,14 @@ declare interface MarkerData {
   latitude: number;
   longitude: number;
   id: number;
-  distance: number
+  distance: number;
   title: string;
-  address: string
+  address: string;
   rating: number;
   time?: number;
   price: string;
+  workingHours: string;
+  amenities: string[];
 }
 
 declare interface MapProps {
@@ -38,7 +69,7 @@ declare interface Ride {
   destination_latitude: number;
   destination_longitude: number;
   ride_time: number;
-  fare_price: number;
+  fare_price: string;
   payment_status: string;
   driver_id: number;
   user_id: string;
@@ -120,13 +151,14 @@ declare interface LocationStore {
     address: string;
   }) => void;
   clearUserLocation: () => void;
+  clearDestinationLocation: () => void;
 }
 
 declare interface ParkingStore {
   parkings: MarkerData[];
-  selectedParking: number | null;
-  setSelectedParking: (driverId: number) => void;
-  setParkings: (drivers: MarkerData[]) => void;
+  selectedParking: MarkerData | null;
+  setSelectedParking: (parking: MarkerData) => void;
+  setParkings: (parkings: MarkerData[]) => void;
   clearSelectedParking: () => void;
 }
 
@@ -143,7 +175,21 @@ export interface PredictedPlaces {
   distance: number;
 }
 
-export interface Location{
+interface Invoice {
+  id: number;               // Corresponds to int identity(1,1) primary key
+  userId: string;          // Corresponds to char(200) unique
+  placeId: number;         // Corresponds to int
+  totalHour: number;       // Corresponds to int
+  startHour: string;       // Corresponds to time (you can use string for ISO format like 'HH:mm:ss')
+  endHour: string;         // Corresponds to time (you can use string for ISO format like 'HH:mm:ss')
+  createdAt: string;       // Corresponds to date (use string for ISO date format 'YYYY-MM-DD')
+  totalPrice: number;      // Corresponds to int
+  paymentMethod: string;   // Corresponds to char(20)
+  paymentStatus: string;    // Corresponds to char(10)
+  cartype: string;         // Corresponds to char(100)
+}
+
+export interface Location {
   address: string;
   rating: number;
   type: string;
@@ -151,17 +197,28 @@ export interface Location{
   name: string;
 }
 
-export interface FindPlaceFilterStore{
-  times:"Theo ngày"| "Theo tuần",
-  setTimes:(time:"Theo ngày"| "Theo tuần")=>void
-  cars:"Xe 4 chỗ"| "Xe 7 chỗ"| "Xe tải nhỏ"| "Xe tải lớn",
-  setCars:(car:"Xe 4 chỗ"| "Xe 7 chỗ"| "Xe tải nhỏ"| "Xe tải lớn")=>void
-  amenities:string[],
-  setAmenities:(amenities:string[])=>void
-  price:number,
-  setPrice:(price:number)=>void
-  distance:number,
-  setDistance:(distance:number)=>void
+export interface FindPlaceFilterStore {
+  times: {
+    startTime: Date ;
+    endTime: Date;
+  };
+  cars: "Xe 4 chỗ" | "Xe 7 chỗ" | "Xe tải nhỏ" | "Xe tải lớn";
+  amenities: string[];
+  price: number;
+  distance: number;
+  totalHour: number;
+  totalPrice:number
+  setTimes: (dates: { startTime: Date ; endTime: Date }) => void;
+  setCars: (car: "Xe 4 chỗ" | "Xe 7 chỗ" | "Xe tải nhỏ" | "Xe tải lớn") => void;
+  setAmenities: (amenities: string[]) => void;
+  setPrice: (price: number) => void;
+  setDistance: (distance: number) => void;
+  setTotalHour: (totalHour:number) => void;
+  setTotalPrice:(price:number)=>void;
+}
 
-  
+export interface InvoiceStore{
+  selectedInvoice:Invoice | null;
+  setSelectedInvoice:(invoice:Invoice)=>void;
+  clearSelectedInvoice:()=>void;
 }

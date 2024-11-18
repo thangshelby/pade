@@ -1,6 +1,13 @@
 import { create } from "zustand";
 import { markersData } from "@/constants";
-import { ParkingStore, LocationStore, MarkerData,FindPlaceFilterStore } from "@/types/type";
+import {
+  ParkingStore,
+  LocationStore,
+  MarkerData,
+  FindPlaceFilterStore,
+  InvoiceStore,
+  Invoice,
+} from "@/types/type";
 
 export const useLocationStore = create<LocationStore>((set) => ({
   userLatitude: null,
@@ -14,7 +21,7 @@ export const useLocationStore = create<LocationStore>((set) => ({
     longitude,
     address,
   }: {
-    latitude: number ;
+    latitude: number;
     longitude: number;
     address: string;
   }) => {
@@ -24,14 +31,14 @@ export const useLocationStore = create<LocationStore>((set) => ({
       userAddress: address,
     }));
 
-   
-    const { selectedParking, clearSelectedParking } = useParkingStore.getState();
+    const { selectedParking, clearSelectedParking } =
+      useParkingStore.getState();
     if (selectedParking) clearSelectedParking();
   },
 
   setDestinationLocation: ({
     latitude,
-    longitude,  
+    longitude,
     address,
   }: {
     latitude: number;
@@ -43,45 +50,54 @@ export const useLocationStore = create<LocationStore>((set) => ({
       destinationLongitude: longitude,
       destinationAddress: address,
     }));
-
-    
-    const { selectedParking, clearSelectedParking } = useParkingStore.getState();
-    if (selectedParking) clearSelectedParking();
   },
-  clearUserLocation: () =>{
+  clearUserLocation: () => {
     set(() => ({
       userLatitude: null,
       userLongitude: null,
       userAddress: null,
     }));
-  }
+  },
+  clearDestinationLocation: () => {
+    set(() => ({
+      destinationLatitude: null,
+      destinationLongitude: null,
+      destinationAddress: null,
+    }));
+  },
 }));
 
 export const useParkingStore = create<ParkingStore>((set) => ({
   parkings: markersData,
   selectedParking: null,
-  setSelectedParking: (parkingId: number) =>
-    set(() => ({ selectedParking: parkingId })),
+  setSelectedParking: (parking: MarkerData) =>
+    set(() => ({ selectedParking: parking })),
   setParkings: (parkings: MarkerData[]) => set(() => ({ parkings })),
   clearSelectedParking: () => set(() => ({ selectedParking: null })),
 }));
 
+export const useFindPlaceFilter = create<FindPlaceFilterStore>((set) => ({
+  times: { startTime: new Date(), endTime: new Date() },
+  cars: "Xe 4 chỗ",
+  amenities: [],
+  price: 25,
+  distance: 500,
+  totalHour: 0,
+  totalPrice: 0,
+  setTimes: (times: { startTime: Date; endTime: Date }) =>
+    set(() => ({ times: times })),
+  setCars: (car: "Xe 4 chỗ" | "Xe 7 chỗ" | "Xe tải nhỏ" | "Xe tải lớn") =>
+    set(() => ({ cars: car })),
+  setAmenities: (amenities: string[]) => set(() => ({ amenities })),
+  setPrice: (price: number) => set(() => ({ price })),
+  setDistance: (distance: number) => set(() => ({ distance })),
+  setTotalHour: (totalHour) => set(() => ({ totalHour })),
+  setTotalPrice: (price: number) => set(() => ({ totalPrice: price })),
+}));
 
 
-
-export const useFindPlaceFilter= create<FindPlaceFilterStore>((set) => ({
-  times:"Theo ngày",
-  setTimes:(time:"Theo ngày"| "Theo tuần")=>set(()=>({times:time})),
-  cars:"Xe 4 chỗ",
-  setCars:(car:"Xe 4 chỗ"| "Xe 7 chỗ"| "Xe tải nhỏ"| "Xe tải lớn")=>set(()=>({cars:car})),
-  amenities:[],
-  setAmenities:(amenities:string[])=>
-    set(()=>({amenities})),
-  price:25,
-  setPrice:(price:number)=>set(()=>({price})),
-  distance:500,
-  setDistance:(distance:number)=>set(()=>({distance}))
-
-}))
-
-
+export const useInvoiceStore = create<InvoiceStore>((set) => ({
+  selectedInvoice: null,
+  setSelectedInvoice: (invoice:Invoice) => set(() => ({ selectedInvoice: invoice })),
+  clearSelectedInvoice: () => set(() => ({ selectedInvoice: null })),
+}));
