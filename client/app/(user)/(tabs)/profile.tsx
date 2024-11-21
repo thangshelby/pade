@@ -1,5 +1,12 @@
 import { useUser } from "@clerk/clerk-expo";
-import { Image, ScrollView, Text, View, StyleSheet } from "react-native";
+import {
+  Image,
+  ScrollView,
+  Text,
+  View,
+  StyleSheet,
+  Pressable,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 // import InputField from "@/components/InputField";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
@@ -10,6 +17,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { useRouter } from "expo-router";
 import { faBell } from "@fortawesome/free-regular-svg-icons";
 import { useNavigation } from "expo-router";
+import { icons } from "@/constants";
 
 const Profile = () => {
   const router = useRouter();
@@ -19,7 +27,7 @@ const Profile = () => {
     <SafeAreaView className="flex-1">
       <GestureHandlerRootView>
         <ScrollView
-          className="px-4 flex-col gap-y-2"
+          className="px-4 flex-col gap-y-2 relative"
           contentContainerStyle={{ paddingBottom: 120 }}
         >
           <View className="flex-row justify-between items-center">
@@ -49,7 +57,7 @@ const Profile = () => {
 
           <TouchableOpacity
             onPress={() => {
-              router.push('/(user)/about-pade')
+              router.push("/(owner)/about-pade");
             }}
             className="w-full border-y-[2px] border-gray-300 py-6"
           >
@@ -69,15 +77,18 @@ const Profile = () => {
               <Image className="w-20 h-20 rounded-xl" source={images.garage} />
             </View>
           </TouchableOpacity>
-          <GestureHandlerRootView className="flex flex-col items-start justify-center gap-y-4">
+          <View className="flex flex-col items-start justify-center gap-y-4">
             {profileFields.map((field) => (
-              <View  key={field.title} className="flex flex-col mb-4 w-full justify-center ">
+              <View
+                key={field.title}
+                className="flex flex-col mb-4 w-full justify-center "
+              >
                 <Text className="text-[20px] font-JakartaBold mb-4">
                   {field.title}
                 </Text>
                 {field.value.map((subField) => (
                   <TouchableOpacity
-                  key={subField.sub_title}
+                    key={subField.sub_title}
                     className="flex flex-row items-center gap-x-2 border-b-[2px] 
                 py-6 border-gray-300"
                   >
@@ -101,9 +112,42 @@ const Profile = () => {
                 ))}
               </View>
             ))}
-          </GestureHandlerRootView>
+          </View>
+          <View className="pl-20 flex-row justify-center items-center w-full ">
+            <TouchableOpacity 
+            onPress={()=>{
+              router.push("../(owner)/(tabs)/home")
+            }}
+            className=" bg-gray-950  py-4 px-6 flex flex-row items-center justify-center gap-x-2 rounded-[36px] w-[80%]">
+              <Image source={icons.switc} className="w-8 h-8" />
+              <Text className="font-semibold text-[#f1f1f1] ">
+                Sang chế độ cho thuê bãi đỗ xe
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
+      </GestureHandlerRootView>
+    </SafeAreaView>
+  );
+};
 
-          {/* <View className="flex flex-col items-start justify-center bg-white rounded-lg shadow-sm shadow-neutral-300 px-5 py-3">
+export default Profile;
+
+const styles = StyleSheet.create({
+  shadow: {
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 1,
+      height: 2,
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+});
+
+{
+  /* <View className="flex flex-col items-start justify-center bg-white rounded-lg shadow-sm shadow-neutral-300 px-5 py-3">
           <View className="flex flex-col items-start justify-start w-full">
             <InputField
               label="First name"
@@ -139,24 +183,5 @@ const Profile = () => {
               editable={false}
             />
           </View>
-        </View> */}
-        </ScrollView>
-      </GestureHandlerRootView>
-    </SafeAreaView>
-  );
-};
-
-export default Profile;
-
-const styles = StyleSheet.create({
-  shadow: {
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 1,
-      height: 2,
-    },
-    shadowOpacity: 0.5,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
-});
+        </View> */
+}

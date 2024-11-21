@@ -83,6 +83,7 @@ module.exports = {
     },
   },
   size: {
+    '2xl':'30px',
       
   },
   plugins: [],

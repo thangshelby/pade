@@ -4,23 +4,26 @@
     "slug": "pade",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/icons/splash.jpg",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./assets/icons/splash.jpg",
       "resizeMode": "contain",
-      "backgroundColor": "#2F80ED"  
-    },  
+      "backgroundColor": "#2F80ED"
+    },
     "ios": {
       "supportsTablet": true
     },
     "android": {
-      "permissions": ["ACCESS_FINE_LOCATION"],
+      "permissions": [
+        "ACCESS_FINE_LOCATION"
+      ],
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.anonymous.pade"
     },
     "web": {
       "bundler": "metro",

@@ -26,7 +26,6 @@ import {
 } from "react-native-gesture-handler";
 import { useLocationStore } from "@/store";
 import { historyPlaces } from "@/constants";
-import { Platform } from "react-native";
 import * as Location from "expo-location";
 const SearchPlaceDetail = () => {
   const { setUserLocation } = useLocationStore();
@@ -71,7 +70,6 @@ const SearchPlaceDetail = () => {
   };
 
   const [hasPermission, setHasPermission] = useState<boolean>(false);
-  const loading = false;
 
   const handleAskPermission = () => {
     (async () => {
@@ -209,6 +207,7 @@ const SearchPlaceDetail = () => {
             keyExtractor={(item, index) => index.toString()}
           />
         </View>
+        
       </SafeAreaView>
     </GestureHandlerRootView>
   );

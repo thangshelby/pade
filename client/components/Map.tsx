@@ -5,7 +5,6 @@ import MapView, {
   PROVIDER_DEFAULT,
   Polyline,
   Circle,
-  Callout,
 } from "react-native-maps";
 import { icons, customMapStyle } from "@/constants";
 import { PlaceValidAfterFilter } from "@/lib/utils";
@@ -124,7 +123,7 @@ const Map = () => {
       showsPointsOfInterest={false}
       initialRegion={initialRegion}
       region={region}
-      showsUserLocation={true}
+      // showsUserLocation={true}
       userInterfaceStyle="light"
     >
       {userLatitude &&

@@ -95,9 +95,94 @@ export const useFindPlaceFilter = create<FindPlaceFilterStore>((set) => ({
   setTotalPrice: (price: number) => set(() => ({ totalPrice: price })),
 }));
 
-
 export const useInvoiceStore = create<InvoiceStore>((set) => ({
   selectedInvoice: null,
-  setSelectedInvoice: (invoice:Invoice) => set(() => ({ selectedInvoice: invoice })),
+  setSelectedInvoice: (invoice: Invoice) =>
+    set(() => ({ selectedInvoice: invoice })),
   clearSelectedInvoice: () => set(() => ({ selectedInvoice: null })),
+}));
+
+export type carType =
+  "Xe 4 chỗ" | "Xe 7 chỗ" | "Xe tải nhỏ" | "Xe tải lớn" | null;
+
+export type descriptionsType = {
+  quantity: number;
+  size: {
+    width: number;
+    height: number;
+  };
+  carType:carType,
+  oparatingTime: {
+    start: Date;
+    close: Date;
+  };
+};
+
+type parkingType =
+  | "Trong nhà"
+  | "Bãi đỗ xe chung cư"
+  | "Bãi đỗ xe chuyên dụng"
+  | "Khu đất trống"
+  | "Sân vườn"
+  | null;
+
+interface setUpParkingStore {
+  parkingType: parkingType;
+
+  parkingLocation: {
+    latitude: number | null;
+    longitude: number | null;
+    address: string | null;
+  };
+  descriptions: descriptionsType;
+  amenities: string[];
+  locationNearBy:string[];
+  pictures: string[];
+  bookingMethod:number|null
+  price: number;
+  setParkingType: (type:parkingType) => void;
+  setParkingLocation: (parkingLocation: {
+    latitude: number;
+    longitude: number;
+    address: string;
+  }) => void;
+  setDescriptions: (descriptions: descriptionsType) => void;
+  setAmenities: (amenities: string[]) => void;
+  setLocationNearBy:(locationNearBy:string[])=>void;
+
+
+  setPictures: (pictures: string[]) => void;
+  setBookingMethod:(method:number)=>void
+  setPrice: (price: number) => void;
+}
+
+export const useSetUpParkingStore = create<setUpParkingStore>((set) => ({
+  parkingType: null,
+  parkingLocation: {
+    latitude: null,
+    longitude: null,
+    address: null,
+  },
+  descriptions: {
+    quantity: 0,
+    size: { width: 0, height: 0 },
+    carType: "Xe 4 chỗ",
+    oparatingTime: {
+      start: new Date(),
+      close: new Date(),
+    },
+  },
+  amenities: [],
+  locationNearBy:[],
+  pictures: [],
+  bookingMethod:null,
+  price: 0,
+  setParkingType: (type) => set({ parkingType: type }),
+  setParkingLocation: (parkingLocation) => set({ parkingLocation }),
+  setDescriptions: (descriptions) => set({ descriptions: descriptions }),
+  setAmenities: (amenities) => set({ amenities }),
+  setLocationNearBy:(locationNearBy)=>set({locationNearBy}),
+  setPictures: (pictures) => set({ pictures }),
+  setBookingMethod:(method)=>set({bookingMethod:method}),
+  setPrice: (price) => set({ price }),
 }));

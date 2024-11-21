@@ -11,10 +11,11 @@ import { faClose, faHouse, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { Slider } from "react-native-awesome-slider";
 import { useSharedValue } from "react-native-reanimated";
 import Map from "@/components/Map";
-// import LinearGradient from "react-native-linear-gradient";
-import { LinearGradient } from 'expo-linear-gradient'; // Import LinearGradient
+import { useRouter } from "expo-router";
+import { LinearGradient } from "expo-linear-gradient"; // Import LinearGradient
 
 const aboutPage = () => {
+  const router = useRouter();
   const maxDay = useSharedValue(30);
   const minDay = useSharedValue(1);
   const [isSliding, setIsSliding] = React.useState(false);
@@ -23,8 +24,8 @@ const aboutPage = () => {
   const currentDay = useSharedValue(1);
 
   return (
-    <SafeAreaView>
-      <GestureHandlerRootView className="w-full h-full relative bg-white">
+
+      <View className="w-full h-full relative bg-white">
         <TouchableOpacity
           className="absolute w-[30px] h-[30px] z-50 ml-6 mt-6 items-center justify-center
            bg-gray-400 rounded-full"
@@ -105,11 +106,16 @@ const aboutPage = () => {
           </View>
         </ScrollView>
 
-        <TouchableOpacity className="absolute p-8 py-4 bottom-0 left-0 w-full">
+        <TouchableOpacity
+          onPress={() => {
+            router.push("/(owner)/(input)/onboarding");
+          }}
+          className="absolute p-8 py-4 bottom-0 left-0 w-full"
+        >
           <LinearGradient
-            colors={["#00bcd4", "#2196f3"]} // Gradient colors
-            start={{ x: 0, y: 0 }} // Gradient start direction
-            end={{ x: 1, y: 0 }} // Gradient end direction (left to right)
+            colors={["#00bcd4", "#2196f3"]} 
+            start={{ x: 0, y: 0 }} 
+            end={{ x: 1, y: 0 }} 
             className="rounded-xl py-4 flex-row gap-x-4 justify-center items-center"
           >
             <FontAwesomeIcon icon={faHouse} color="white" size={20} />
@@ -118,8 +124,8 @@ const aboutPage = () => {
             </Text>
           </LinearGradient>
         </TouchableOpacity>
-      </GestureHandlerRootView>
-    </SafeAreaView>
+      </View>
+
   );
 };
 

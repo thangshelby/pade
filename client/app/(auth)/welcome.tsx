@@ -6,13 +6,9 @@ import {
   TouchableOpacity,
   View,
   StyleSheet,
-  Animated,
-  Easing,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Swiper from "react-native-swiper";
-import { LinearGradient } from "expo-linear-gradient";
-import CustomButton from "@/components/CustomButton";
 import { onboarding } from "@/constants";
 
 const Home = () => {

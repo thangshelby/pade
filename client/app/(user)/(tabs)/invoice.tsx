@@ -6,12 +6,11 @@ import BottomSheet from "@gorhom/bottom-sheet";
 import { useRef, useState, useEffect } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Invoice } from "@/types/type";
-import { useUser } from "@clerk/clerk-expo";
+
 import { useInvoiceStore } from "@/store";
 import Timer from "@/components/Timer";
 
 const Invoices = () => {
-  const { user } = useUser();
   const [invoices, setInvoices] = useState<Invoice[]>([]);
   const { selectedInvoice, setSelectedInvoice } = useInvoiceStore();
 
